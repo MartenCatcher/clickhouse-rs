@@ -36,7 +36,6 @@ parameters:
 
 - `compression` - Whether or not use compression (defaults to `none`). Possible choices:
     * `none`
-    * `lz4`
 
 - `connection_timeout` - Timeout for connection (defaults to `500 ms`)
 - `keepalive` - TCP keep alive timeout in milliseconds.

@@ -7,7 +7,6 @@ use std::{
 
 use byteorder::{LittleEndian, WriteBytesExt};
 use clickhouse_rs_cityhash_sys::{city_hash_128, UInt128};
-use lz4::liblz4::LZ4_decompress_safe;
 
 use crate::{binary::ReadEx, errors::{Error, Result}};
 
@@ -94,14 +93,7 @@ where
     }
 
     let data = vec![0_u8; original as usize];
-    let status = unsafe {
-        LZ4_decompress_safe(
-            (buffer.as_mut_ptr() as *const c_char).add(9),
-            data.as_ptr() as *mut i8,
-            (compressed - 9) as c_int,
-            original as c_int,
-        )
-    };
+    let status = 0;
 
     if status < 0 {
         return Err(raise_error("can't decompress data".to_string()));

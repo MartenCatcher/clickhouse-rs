@@ -7,7 +7,6 @@ use std::{
 use byteorder::{LittleEndian, WriteBytesExt};
 use chrono_tz::Tz;
 use clickhouse_rs_cityhash_sys::city_hash_128;
-use lz4::liblz4::{LZ4_compressBound, LZ4_compress_default};
 
 use crate::{
     binary::{protocol, Encoder, ReadEx},
@@ -282,16 +281,7 @@ impl Block {
             let tmp = tmp_encoder.get_buffer();
 
             let mut buf = Vec::new();
-            let size;
-            unsafe {
-                buf.resize(9 + LZ4_compressBound(tmp.len() as i32) as usize, 0_u8);
-                size = LZ4_compress_default(
-                    tmp.as_ptr() as *const i8,
-                    (buf.as_mut_ptr() as *mut i8).add(9),
-                    tmp.len() as i32,
-                    buf.len() as i32,
-                );
-            }
+            let size= 0;
             buf.resize(9 + size as usize, 0_u8);
 
             let buf_len = buf.len() as u32;

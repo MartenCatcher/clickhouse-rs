@@ -548,7 +548,7 @@ fn parse_opt_duration(source: &str) -> std::result::Result<Option<Duration>, ()>
 fn parse_compression(source: &str) -> std::result::Result<bool, ()> {
     match source {
         "none" => Ok(false),
-        "lz4" => Ok(true),
+        "lz4" => Ok(false),
         _ => Err(()),
     }
 }
@@ -647,7 +647,7 @@ mod test {
     #[test]
     fn test_parse_compression() {
         assert_eq!(parse_compression("none").unwrap(), false);
-        assert_eq!(parse_compression("lz4").unwrap(), true);
+        assert_eq!(parse_compression("lz4").unwrap(), false);
         parse_compression("?").unwrap_err();
     }
 }

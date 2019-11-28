@@ -117,7 +117,6 @@ extern crate hostname;
 extern crate lazy_static;
 #[macro_use]
 extern crate log;
-extern crate lz4;
 #[cfg(test)]
 extern crate rand;
 extern crate tokio;
@@ -560,6 +559,6 @@ mod test_misc {
 
     lazy_static! {
         pub static ref DATABASE_URL: String = env::var("DATABASE_URL")
-            .unwrap_or_else(|_| "tcp://localhost:9000?compression=lz4".into());
+            .unwrap_or_else(|_| "tcp://localhost:9000?compression=none".into());
     }
 }

@@ -26,7 +26,7 @@ fn main() {
     block.push(row!{ customer_id: 9_u32, amount: 10_u32, account_name: Some("bar") }).unwrap();
 
     let database_url =
-        env::var("DATABASE_URL").unwrap_or_else(|_| "tcp://localhost:9000?compression=lz4".into());
+        env::var("DATABASE_URL").unwrap_or_else(|_| "tcp://localhost:9000?compression=none".into());
     let pool = Pool::new(database_url);
 
     let done = pool
