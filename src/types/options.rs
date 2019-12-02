@@ -597,7 +597,7 @@ mod test {
                 keepalive: Some(Duration::from_secs(99)),
                 ping_timeout: Duration::from_millis(42),
                 connection_timeout: Duration::from_secs(10),
-                compression: true,
+                compression: false,
                 ..Options::default()
             },
             from_url(url).unwrap(),
