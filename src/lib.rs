@@ -137,7 +137,7 @@ use crate::{
     retry_guard::RetryGuard,
     types::{Block, Cmd, Context, IntoOptions, Options, OptionsSource, Packet, Query, QueryResult, Complex, Either},
 };
-use failure::_core::time::Duration;
+use std::time::Duration;
 
 mod binary;
 mod client_info;

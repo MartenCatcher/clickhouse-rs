@@ -11,10 +11,9 @@ use std::{
 
 use crate::errors::{Error, Result, UrlError};
 #[cfg(feature = "tls")]
-use failure::_core::fmt::Formatter;
-#[cfg(feature = "tls")]
 use native_tls;
 use url::Url;
+use std::fmt::Formatter;
 
 const DEFAULT_MIN_CONNS: usize = 10;
 
