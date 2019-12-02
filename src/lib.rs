@@ -109,7 +109,6 @@ extern crate chrono;
 extern crate chrono_tz;
 extern crate clickhouse_rs_cityhash_sys;
 extern crate core;
-extern crate failure;
 #[macro_use]
 extern crate futures;
 extern crate hostname;

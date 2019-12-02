@@ -1,6 +1,5 @@
 use std::{borrow::Cow, io, mem, result, str::Utf8Error, string::FromUtf8Error};
 
-use failure::*;
 use tokio::prelude::*;
 use tokio_timer::timeout::Error as TimeoutError;
 use tokio_timer::Error as TimerError;
@@ -20,7 +19,7 @@ pub enum Error {
 
     Connection(ConnectionError),
 
-    Other(failure::Error),
+    Other(ServerError),
 
     Server(ServerError),
 
@@ -116,25 +115,45 @@ impl From<UrlError> for Error {
 
 impl From<String> for Error {
     fn from(err: String) -> Self {
-        Error::Other(failure::Context::new(err).into())
+        Error::Other(ServerError {
+            code: 0,
+            name: "#1".to_string(),
+            message: err,
+            stack_trace: String::new(),
+        })
     }
 }
 
 impl From<&str> for Error {
     fn from(err: &str) -> Self {
-        Error::Other(failure::Context::new(err.to_string()).into())
+        Error::Other(ServerError {
+            code: 0,
+            name: "#2".to_string(),
+            message: err.to_string(),
+            stack_trace: String::new(),
+        })
     }
 }
 
 impl From<FromUtf8Error> for Error {
     fn from(err: FromUtf8Error) -> Self {
-        Error::Other(failure::Context::new(err).into())
+        Error::Other(ServerError {
+            code: 0,
+            name: "#3".to_string(),
+            message: err.to_string(),
+            stack_trace: String::new(),
+        })
     }
 }
 
 impl From<TimerError> for Error {
     fn from(err: TimerError) -> Self {
-        Error::Other(failure::Context::new(err).into())
+        Error::Other(ServerError {
+            code: 0,
+            name: "#1".to_string(),
+            message: err.to_string(),
+            stack_trace: String::new(),
+        })
     }
 }
 
