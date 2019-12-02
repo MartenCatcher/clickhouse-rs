@@ -32,8 +32,8 @@ chrono-tz = "0.5"
 clickhouse-rs-cityhash-sys = { path = "clickhouse-rs-cityhash-sys", version = "0.1.1" }
 
 byteorder = "1.3.1"
-failure = "0.1"
-failure_derive = "0.1"
+failure = { version = "0.1.6", features = ["derive"] }
+failure_derive = "0.1.6"
 url="^2"
 lazy_static = "1.4.0"
 
