@@ -142,7 +142,7 @@ impl Pool {
                 min = opt.pool_min;
                 max = opt.pool_max;
             }
-            Err(err) => error!("{}", err),
+            Err(err) => error!("{:?}", err),
         }
 
         let inner = Arc::new(Inner {
@@ -549,7 +549,7 @@ mod test {
                     counter.fetch_add(1, Ordering::Relaxed);
                     Ok(())
                 })
-                .map_err(|err| eprintln!("database error: {}", err));
+                .map_err(|err| eprintln!("database error: {:?}", err));
 
             if i % 2 == 0 {
                 run(done).unwrap();

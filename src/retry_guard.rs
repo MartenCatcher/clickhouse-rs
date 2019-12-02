@@ -78,7 +78,7 @@ where
     fn poll(&mut self) -> Poll<Self::Item, Self::Error> {
         match self.state.poll() {
             RetryPoll::Check(Err(err)) => {
-                warn!("[check] {}", err);
+                warn!("[check] {:?}", err);
                 if self.attempt >= self.max_attempt {
                     return Err(err);
                 }

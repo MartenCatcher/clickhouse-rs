@@ -214,7 +214,7 @@ impl From<Error> for io::Error {
     fn from(err: Error) -> Self {
         match err {
             Error::Io(error) => error,
-            e => io::Error::new(io::ErrorKind::Other, e.to_string()),
+            e => io::Error::new(io::ErrorKind::Other, format!("{:?}", e)),
         }
     }
 }

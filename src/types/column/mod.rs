@@ -166,7 +166,7 @@ impl<K: ColumnType> Column<K> {
     ///           })
     ///       })
     ///       .map(|(_, sum)| { dbg!(sum); })
-    ///       .map_err(|err| eprintln!("database error: {}", err));
+    ///       .map_err(|err| eprintln!("database error: {:?}", err));
     /// # tokio::run(done)
     /// ```
     pub fn iter<'a, T: Iterable<'a, K>>(&'a self) -> Result<T::Iter> {

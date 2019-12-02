@@ -63,7 +63,7 @@ impl QueryResult {
     ///             })
     ///     })
     /// #   .map(|_| ())
-    /// #   .map_err(|err| eprintln!("database error: {}", err));
+    /// #   .map_err(|err| eprintln!("database error: {:?}", err));
     /// # tokio::run(done)
     /// ```
     pub fn fold<F, T, Fut>(self, init: T, f: F) -> impl Future<Item=(ClientHandle, T), Error=Error>
@@ -185,7 +185,7 @@ impl QueryResult {
     ///              })
     ///      })
     /// #    .map(|_| ())
-    /// #    .map_err(|err| eprintln!("database error: {}", err));
+    /// #    .map_err(|err| eprintln!("database error: {:?}", err));
     /// # tokio::run(done)
     /// ```
     pub fn stream_blocks(self) -> BoxStream<Block> {

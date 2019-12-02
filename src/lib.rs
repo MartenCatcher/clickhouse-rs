@@ -96,7 +96,7 @@
 //!         }
 //!         Ok(())
 //!     })
-//!     .map_err(|err| eprintln!("database error: {}", err));
+//!     .map_err(|err| eprintln!("database error: {:?}", err));
 //!
 //! tokio::run(done)
 //!

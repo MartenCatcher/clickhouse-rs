@@ -719,7 +719,7 @@ fn test_reconnect() {
                 counter.fetch_add(value as usize, Ordering::SeqCst);
                 Ok(())
             })
-            .map_err(|err| eprintln!("database error: {}", err));
+            .map_err(|err| eprintln!("database error: {:?}", err));
 
         run(done).unwrap();
     }
