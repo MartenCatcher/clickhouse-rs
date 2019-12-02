@@ -12,33 +12,25 @@ use crate::types::Packet;
 pub type Result<T> = result::Result<T, Error>;
 
 /// This type enumerates library errors.
-#[derive(Debug, Fail)]
+#[derive(Debug)]
 pub enum Error {
-    #[fail(display = "Driver error: `{}`", _0)]
-    Driver(#[cause] DriverError),
+    Driver(DriverError),
 
-    #[fail(display = "Input/output error: `{}`", _0)]
-    Io(#[cause] io::Error),
+    Io(io::Error),
 
-    #[fail(display = "Connections error: `{}`", _0)]
-    Connection(#[cause] ConnectionError),
+    Connection(ConnectionError),
 
-    #[fail(display = "Other error: `{}`", _0)]
-    Other(#[cause] failure::Error),
+    Other(failure::Error),
 
-    #[fail(display = "Server error: `{}`", _0)]
-    Server(#[cause] ServerError),
+    Server(ServerError),
 
-    #[fail(display = "URL error: `{}`", _0)]
-    Url(#[cause] UrlError),
+    Url(UrlError),
 
-    #[fail(display = "From SQL error: `{}`", _0)]
-    FromSql(#[cause] FromSqlError),
+    FromSql(FromSqlError),
 }
 
 /// This type represents Clickhouse server error.
-#[derive(Debug, Fail, Clone)]
-#[fail(display = "ERROR {} ({}): {}", name, code, message)]
+#[derive(Debug, Clone)]
 pub struct ServerError {
     pub code: u32,
     pub name: String,
@@ -47,73 +39,54 @@ pub struct ServerError {
 }
 
 /// This type enumerates connection errors.
-#[derive(Debug, Fail)]
+#[derive(Debug)]
 pub enum ConnectionError {
-    #[fail(display = "TLS connection requires hostname to be provided")]
     TlsHostNotProvided,
 
-    #[fail(display = "Input/output error: `{}`", _0)]
-    IoError(#[cause] io::Error),
+    IoError(io::Error),
 
     #[cfg(feature = "tls")]
-    #[fail(display = "TLS connection error: `{}`", _0)]
-    TlsError(#[cause] native_tls::Error),
+    TlsError(native_tls::Error),
 }
 
 /// This type enumerates connection URL errors.
-#[derive(Debug, Fail)]
+#[derive(Debug)]
 pub enum UrlError {
-    #[fail(display = "Invalid or incomplete connection URL")]
     Invalid,
 
-    #[fail(
-        display = "Invalid value `{}' for connection URL parameter `{}'",
-        value, param
-    )]
     InvalidParamValue { param: String, value: String },
 
-    #[fail(display = "URL parse error: {}", _0)]
-    Parse(#[cause] ParseError),
+    Parse(ParseError),
 
-    #[fail(display = "Unknown connection URL parameter `{}'", param)]
     UnknownParameter { param: String },
 
-    #[fail(display = "Unsupported connection URL scheme `{}'", scheme)]
     UnsupportedScheme { scheme: String },
 }
 
 /// This type enumerates driver errors.
-#[derive(Debug, Fail)]
+#[derive(Debug)]
 pub enum DriverError {
-    #[fail(display = "Varint overflows a 64-bit integer.")]
     Overflow,
 
-    #[fail(display = "Unknown packet 0x{:x}.", packet)]
     UnknownPacket { packet: u64 },
 
-    #[fail(display = "Unexpected packet.")]
     UnexpectedPacket,
 
-    #[fail(display = "Timeout error.")]
     Timeout,
 
-    #[fail(display = "Invalid utf-8 sequence.")]
     Utf8Error(Utf8Error),
 }
 
 /// This type enumerates cast from sql type errors.
-#[derive(Debug, Fail)]
+#[derive(Debug)]
 pub enum FromSqlError {
-    #[fail(display = "SqlType::{} cannot be cast to {}.", src, dst)]
     InvalidType {
         src: Cow<'static, str>,
         dst: Cow<'static, str>,
     },
 
-    #[fail(display = "Out of range.")]
     OutOfRange,
 
-    #[fail(display = "Unsupported operation.")]
     UnsupportedOperation,
 }
 
